@@ -11,13 +11,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CameraController _cameraController;
+    [SerializeField] private GameObject smokeParticlePrefab;
     [SerializeField] private int speed;
-
+    
     private Quaternion _defaultRotate;
     private CharacterController _characterController;
     private Animator _animator;
     private Animation _animation;
-    
     private float _defaultRotation;
     private float rotationPositiveZAxis = 20f;
     private float rotationNegativeZAxis = -20f;
@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            ParticleEffectActive(true);
             RunFast(true,15);
             _isMousePress = true;
             Vector3 position = new Vector3(negativeMoveXAxis, transform.position.y, transform.position.z);
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            ParticleEffectActive(false);
             RunFast(false,10);
             _isMouseClick = true;
             _cameraController.CameraMove(-5);
@@ -106,6 +108,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _animator.SetBool("isRun",isRun);
         speed = newSpeed;
+    }
+
+    public void ParticleEffectActive(bool isParticleActive)
+    {
+        smokeParticlePrefab.SetActive(isParticleActive);
     }
     
 }
