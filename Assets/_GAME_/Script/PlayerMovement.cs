@@ -1,38 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using Cinemachine;
 using DG.Tweening;
 using Unity.Collections;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CameraController _cameraController;
-    [SerializeField] private int speed = 2;
+    [SerializeField] private int speed;
 
     private Quaternion _defaultRotate;
     private CharacterController _characterController;
+    private Animator _animator;
+    private Animation _animation;
     
     private float _defaultRotation;
-    private float rotationPositiveZAxis = 25f;
-    private float rotationNegativeZAxis = -25f;
+    private float rotationPositiveZAxis = 20f;
+    private float rotationNegativeZAxis = -20f;
     private bool _isMouseClick = true;
     private bool _isMousePress;
-    
-
+    private bool _isGameActive = true;
 
     void Awake()
     {
+         speed = 5;
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
         _defaultRotation = transform.rotation.z;
         _defaultRotate =Quaternion.Euler(transform.rotation.x,transform.rotation.y,_defaultRotation);
     }
     
     void FixedUpdate()
     {
-        Move(Vector3.forward * Time.fixedDeltaTime * speed);
-        PlayerDirection(-1,0);
+        if (_isGameActive)
+        {
+            Move(Vector3.forward * Time.fixedDeltaTime * speed);
+            PlayerDirection(-1,1);
+        }
+
     }
     void Move(Vector3 moveVector)
     {
@@ -43,17 +52,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
+            RunFast(true,15);
             _isMousePress = true;
             Vector3 position = new Vector3(negativeMoveXAxis, transform.position.y, transform.position.z);
             transform.DOMove(position, .5f);
             PlayerRotation(rotationPositiveZAxis);
-            _cameraController.CameraMove(-6);
+            _cameraController.CameraMove(-5);
         }
         else
         {
+            RunFast(false,10);
             _isMouseClick = true;
             _cameraController.CameraMove(-5);
-            // transform.DOKill();
             Vector3 position = new Vector3(positiveMoveXAxis, transform.position.y, transform.position.z);
             transform.DOMove(position, .5f);
             if (_isMousePress)
@@ -69,11 +79,34 @@ public class PlayerMovement : MonoBehaviour
         if (_isMouseClick)
         {
             Quaternion rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y,  rotationAxis);
-            transform.DORotateQuaternion(rotation, .3f).OnComplete(() =>
+            transform.DORotateQuaternion(rotation, .2f).OnComplete(() =>
             {
-                transform.DORotateQuaternion(_defaultRotate,.3f);
+                transform.DORotateQuaternion(_defaultRotate,.2f);
             }); 
         }
         _isMouseClick = false; // Bir kere çalışsın.
+        
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("GameFinish"))
+        {
+            GameFinish(Random.Range(1,4));
+        }
+    }
+
+    void GameFinish(int winIndex)
+    {
+        _isGameActive = false;
+        _animator.SetInteger("WinIndex",winIndex);
+    }
+
+    public void RunFast(bool isRun,int newSpeed)
+    {
+        _animator.SetBool("isRun",isRun);
+        speed = newSpeed;
+    }
+    
 }
+
