@@ -11,8 +11,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CameraController _cameraController;
-    [SerializeField] private GameObject smokeParticlePrefab;
-    [SerializeField] private int speed;
+    [SerializeField] private GameObject _smokeParticlePrefab;
+    [SerializeField] private GameObject _ball;
+    [SerializeField] private GameObject _uıManager;
+    [SerializeField] private int _speed;
     
     private Quaternion _defaultRotate;
     private CharacterController _characterController;
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-         speed = 5;
+         _speed = 5;
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _defaultRotation = transform.rotation.z;
@@ -38,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isGameActive)
         {
-            Move(Vector3.forward * Time.fixedDeltaTime * speed);
+            Move(Vector3.forward * Time.fixedDeltaTime * _speed);
             PlayerDirection(-1,1);
         }
 
@@ -52,20 +54,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            ParticleEffectActive(true);
             RunFast(true,15);
             _isMousePress = true;
             Vector3 position = new Vector3(negativeMoveXAxis, transform.position.y, transform.position.z);
             transform.DOMove(position, .5f);
             PlayerRotation(rotationPositiveZAxis);
+            ParticleEffectActivePassive(true);
             _cameraController.CameraMove(-5);
         }
         else
         {
-            ParticleEffectActive(false);
+ 
             RunFast(false,10);
             _isMouseClick = true;
             _cameraController.CameraMove(-5);
+            ParticleEffectActivePassive(false);
             Vector3 position = new Vector3(positiveMoveXAxis, transform.position.y, transform.position.z);
             transform.DOMove(position, .5f);
             if (_isMousePress)
@@ -76,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void PlayerRotation(float rotationAxis)
+    private void PlayerRotation(float rotationAxis)
     {
         if (_isMouseClick)
         {
@@ -100,19 +103,22 @@ public class PlayerMovement : MonoBehaviour
 
     void GameFinish(int winIndex)
     {
-        _isGameActive = false;
         _animator.SetInteger("WinIndex",winIndex);
+        _isGameActive = false;
+        ParticleEffectActivePassive(false);
+        _ball.SetActive(false);
+        _uıManager.SetActive(true);
     }
 
-    public void RunFast(bool isRun,int newSpeed)
+    private void RunFast(bool isRun,int newSpeed)
     {
         _animator.SetBool("isRun",isRun);
-        speed = newSpeed;
+        _speed = newSpeed;
     }
 
-    public void ParticleEffectActive(bool isParticleActive)
+    private void ParticleEffectActivePassive(bool isParticleActive)
     {
-        smokeParticlePrefab.SetActive(isParticleActive);
+        _smokeParticlePrefab.SetActive(isParticleActive);
     }
     
 }

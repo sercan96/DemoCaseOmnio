@@ -38,7 +38,7 @@ ModelImporter:
     second: Win2
   - first:
       74: -2854180223796039443
-    second: PlayerCheer02
+    second: Win2
   - first:
       74: -8613270071637753016
     second: PlayerCheer03
@@ -48,6 +48,9 @@ ModelImporter:
   - first:
       74: -6653742333711771110
     second: Win1
+  - first:
+      74: -3125174275008377916
+    second: Win3
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -199,10 +202,39 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Win2
-      takeName: PlayerJumpRoll
+      takeName: PlayerCheer02
       internalID: 0
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 169
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Win3
+      takeName: PlayerCheer03
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
