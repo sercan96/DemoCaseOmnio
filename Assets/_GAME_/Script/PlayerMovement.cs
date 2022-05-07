@@ -11,21 +11,19 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CameraController _cameraController;
-    [SerializeField] private GameObject _smokeParticlePrefab;
-    [SerializeField] private GameObject _ball;
-    [SerializeField] private GameObject _uıManager;
     [SerializeField] private int _speed;
+    [SerializeField] private GameManager _gameManager;
     
     private Quaternion _defaultRotate;
     private CharacterController _characterController;
     private Animator _animator;
     private Animation _animation;
+    
     private float _defaultRotation;
     private float rotationPositiveZAxis = 20f;
     private float rotationNegativeZAxis = -20f;
     private bool _isMouseClick = true;
     private bool _isMousePress;
-    private bool _isGameActive = true;
 
     void Awake()
     {
@@ -38,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (_isGameActive)
+        if (_gameManager.isGameActive)
         {
             Move(Vector3.forward * Time.fixedDeltaTime * _speed);
             PlayerDirection(-1,1);
@@ -59,16 +57,16 @@ public class PlayerMovement : MonoBehaviour
             Vector3 position = new Vector3(negativeMoveXAxis, transform.position.y, transform.position.z);
             transform.DOMove(position, .5f);
             PlayerRotation(rotationPositiveZAxis);
-            ParticleEffectActivePassive(true);
-            _cameraController.CameraMove(-5);
+            _gameManager.ParticleEffectActivePassive(true);
+            _cameraController.PlayerCameraMovement(-5,10f);
         }
         else
         {
  
             RunFast(false,10);
             _isMouseClick = true;
-            _cameraController.CameraMove(-5);
-            ParticleEffectActivePassive(false);
+            _cameraController.PlayerCameraMovement(-5,10f);
+            _gameManager.ParticleEffectActivePassive(false);
             Vector3 position = new Vector3(positiveMoveXAxis, transform.position.y, transform.position.z);
             transform.DOMove(position, .5f);
             if (_isMousePress)
@@ -90,36 +88,21 @@ public class PlayerMovement : MonoBehaviour
             }); 
         }
         _isMouseClick = false; // Bir kere çalışsın.
-        
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("GameFinish"))
         {
-            GameFinish(Random.Range(1,4));
+            _gameManager.GameFinish(Random.Range(1,4));
         }
     }
-
-    void GameFinish(int winIndex)
-    {
-        _animator.SetInteger("WinIndex",winIndex);
-        _isGameActive = false;
-        ParticleEffectActivePassive(false);
-        _ball.SetActive(false);
-        _uıManager.SetActive(true);
-    }
-
     private void RunFast(bool isRun,int newSpeed)
     {
         _animator.SetBool("isRun",isRun);
         _speed = newSpeed;
     }
-
-    private void ParticleEffectActivePassive(bool isParticleActive)
-    {
-        _smokeParticlePrefab.SetActive(isParticleActive);
-    }
+    
     
 }
 
