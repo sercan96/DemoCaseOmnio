@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3706176565489019555}
   - component: {fileID: 2904327248638927657}
   m_Layer: 0
-  m_Name: Chunk3
+  m_Name: Chunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +337,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f40a1de58ace4b6292d6651aaa6a1e4, type: 2}
+  - {fileID: -4586444591600750072, guid: cd2f09f7da960471aac7e7ce8f9a7a2f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -642,7 +642,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -650,7 +650,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f40a1de58ace4b6292d6651aaa6a1e4, type: 2}
+  - {fileID: -4586444591600750072, guid: cd2f09f7da960471aac7e7ce8f9a7a2f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

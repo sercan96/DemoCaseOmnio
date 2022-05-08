@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
-    [SerializeField] private GameObject _smokeParticlePrefab;
-    [SerializeField] private GameObject _ball;
-    [SerializeField] private GameObject _uıManager;
-    [SerializeField] private GameObject ConfetiParticleObject;
-    [SerializeField] private CameraController _cameraController;
+    [SerializeField] private Animator _animator = default;
+    [SerializeField] private GameObject _smokeParticlePrefab = default;
+    [SerializeField] private GameObject _ball = default;
+    [SerializeField] private GameObject _uıManager = default;
+    [SerializeField] private GameObject ConfetiParticleObject = default;
+    [SerializeField] private CameraController _cameraController = default;
+    [SerializeField] private AudioClip[] _audioClips = default;
     
     public bool isGameActive = true;
     
+    private AudioSource _audioSource;
+
+    void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+    void Start()
+    {
+        AudioPlay(0);
+    }
+
     public void GameFinish(int winIndex)
     {
         _animator.SetInteger("WinIndex",winIndex);
@@ -22,9 +34,23 @@ public class GameManager : MonoBehaviour
         _uıManager.SetActive(true);
         ConfetiParticleObject.SetActive(true);
         _cameraController.GameFinishCameraMovement();
+        
     }
     public void ParticleEffectActivePassive(bool isParticleActive)
     {
         _smokeParticlePrefab.SetActive(isParticleActive);
+    }
+    public void AudioPlay(int winMusic)
+    {
+        if(isGameActive)
+        {
+            _audioSource.PlayOneShot(_audioClips[winMusic]);
+        }
+        else
+        {
+            _audioSource.Stop();
+            _audioSource.PlayOneShot(_audioClips[winMusic]);
+        }
+
     }
 }

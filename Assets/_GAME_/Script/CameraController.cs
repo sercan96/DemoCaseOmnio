@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera = default;
+    [SerializeField] private Vector3 _gameFinishCameraPos = default;
+    
     CinemachineTransposer _cinemachineComponent;
-    [SerializeField] private Vector3 gameFinishCameraPos;
-
     void Start()
     {
         _cinemachineComponent = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
@@ -24,6 +24,6 @@ public class CameraController : MonoBehaviour
 
     public void GameFinishCameraMovement()
     {
-        _cinemachineComponent.m_FollowOffset = gameFinishCameraPos;
+        _cinemachineComponent.m_FollowOffset = _gameFinishCameraPos;
     }
 }
