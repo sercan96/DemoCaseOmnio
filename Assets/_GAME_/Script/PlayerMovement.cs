@@ -92,19 +92,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("enemy"))
         {
-            GameManager.İnstance.isGameActive = false;
-        
+            GameManager.İnstance.GameOver();
+            GetComponent<BoxCollider>().enabled = false;
+            GameManager.İnstance.AudioPlay(4);
             // _spawnMove[0].GetMoveSpeed = _spawnMove[0].GetMoveSpeed / 2;
             // _spawnMove[1].GetMoveSpeed = _spawnMove[1].GetMoveSpeed * 2;
-    
 
         }
         else if (other.gameObject.tag == "GameFinishCollider")
         {
             Debug.Log("girdim");
+            GameManager.İnstance.GameFinish(Random.Range(1,4));
+            GameManager.İnstance.AudioPlay(Random.Range(1,3));
         }
-        GameManager.İnstance.GameFinish(Random.Range(1,4));
-        GameManager.İnstance.AudioPlay(Random.Range(1,3));
+       
+       
 
     }
 }

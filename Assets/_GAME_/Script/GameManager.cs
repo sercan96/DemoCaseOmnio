@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ConfetiParticleObject = default;
     [SerializeField] private CameraController _cameraController = default;
     [SerializeField] private AudioClip[] _audioClips = default;
+    [SerializeField] private GameObject gameOverPanel = default;
    
     
     public bool isGameActive = true;
@@ -42,6 +44,16 @@ public class GameManager : MonoBehaviour
         _cameraController.GameFinishCameraMovement();
         
     }
+
+    public void GameOver()
+    {
+        _animator.SetBool("isHit",true);
+        gameOverPanel.SetActive(true);
+        isGameActive = false;
+        ParticleEffectActivePassive(false);
+        _ball.SetActive(false);
+        _cameraController.GameFinishCameraMovement();
+    }
     public void ParticleEffectActivePassive(bool isParticleActive)
     {
         _smokeParticlePrefab.SetActive(isParticleActive);
@@ -57,6 +69,12 @@ public class GameManager : MonoBehaviour
             _audioSource.Stop();
             _audioSource.PlayOneShot(_audioClips[winMusic]);
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+        gameOverPanel.SetActive(false);
     }
     
 }
