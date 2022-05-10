@@ -9,7 +9,7 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngineInternal;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private CameraController _cameraController = default;
@@ -28,16 +28,17 @@ public class PlayerMovement : MonoBehaviour
     private bool _isMousePress;
     private int negativeMoveXAxis = -1;
     private int positiveMoveXAxis = 1;
-    private int fastSpeed = 15;
-    private int slowSpeed = 10;
+    [SerializeField]private int fastSpeed = 15;
+    [SerializeField]private int slowSpeed = 10;
+
+    private Rigidbody rb;
     void Awake()
     {
-        // rb = GetComponent<Rigidbody>();
-        _characterController = GetComponent<CharacterController>();
+         rb = GetComponent<Rigidbody>();
+        // _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _defaultRotation = transform.rotation.z;
         _defaultRotate =Quaternion.Euler(transform.rotation.x,transform.rotation.y,_defaultRotation);
-        _speed = 5;
 
     }
     
@@ -45,15 +46,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_gameManager.isGameActive)
         {
-            Move(Vector3.forward * Time.fixedDeltaTime * _speed);
+            Move(Vector3.forward * Time.deltaTime * _speed);
             PlayerControl();
         }
 
     }
     public void Move(Vector3 moveVector)
     {
-        _characterController.Move(moveVector);
-        _characterController.center = _characterController.center;
+        // _characterController.Move(moveVector);
+        // _characterController.center = _characterController.center;
+        // rb.MovePosition(moveVector);
+        transform.Translate(moveVector);
     }
 
     void PlayerControl()
@@ -87,27 +90,27 @@ public class PlayerMovement : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y,  rotationAxis);
             transform.DORotateQuaternion(rotation, .2f).OnComplete(() =>
             {
-                transform.DORotateQuaternion(_defaultRotate,.2f);
+                transform.DORotateQuaternion(_defaultRotate,.5f);
             }); 
         }
         _isMouseClick = false; // Bir kere çalışsın.
     }
 
-    private  void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.tag == "enemy")
-        {
-            Debug.Log("carpıstı");
-        }
-        
-        
-        else if (hit.gameObject.tag == "GameFinishCollider")
-        {
-            Debug.Log("girdim");
-            _gameManager.GameFinish(Random.Range(1,4));
-            _gameManager.AudioPlay(Random.Range(1,3));
-        }
-    }
+    // private  void OnControllerColliderHit(ControllerColliderHit hit)
+    // {
+    //     if (hit.gameObject.tag == "enemy")
+    //     {
+    //         Debug.Log("carpıstı");
+    //     }
+    //     
+    //     
+    //     else if (hit.gameObject.tag == "GameFinishCollider")
+    //     {
+    //         Debug.Log("girdim");
+    //         _gameManager.GameFinish(Random.Range(1,4));
+    //         _gameManager.AudioPlay(Random.Range(1,3));
+    //     }
+    // }
     
     private void RunFastOrSlow(bool isRun,int newSpeed)
     {
@@ -118,21 +121,21 @@ public class PlayerMovement : MonoBehaviour
     private void PassLeftOrRightSide(float moveXAxis)
     {
         Vector3 position = new Vector3(moveXAxis, transform.position.y, transform.position.z);
-        transform.DOMove(position, 1f);
+        transform.DOMove(position, 1.1f);
     }
     
     
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.gameObject.CompareTag("enemy"))
-    //     {
-    //         Debug.Log("carpıstı");
-    //     }
-    //     else if (other.gameObject.tag != "GameFinishCollider") return;
-    //     Debug.Log("girdim");
-    //     _gameManager.GameFinish(Random.Range(1,4));
-    //     _gameManager.AudioPlay(Random.Range(1,3));
-    // }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("enemy"))
+        {
+            Debug.Log("carpıstı");
+        }
+        else if (other.gameObject.tag != "GameFinishCollider") return;
+        Debug.Log("girdim");
+        _gameManager.GameFinish(Random.Range(1,4));
+        _gameManager.AudioPlay(Random.Range(1,3));
+    }
 
     
 
@@ -141,4 +144,3 @@ public class PlayerMovement : MonoBehaviour
     
     
 }
-

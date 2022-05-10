@@ -30,6 +30,17 @@ public class ObjectPool : MonoBehaviour
     //         // _animator.SetBool("isHit",true);            
     //     }
     // }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         Debug.Log("carpıstı");
+    //     }
+    //     else if (other.gameObject.tag != "GameFinishCollider") return;
+    //     Debug.Log("girdim");
+    //
+    //
+    // }
 
  
 }
