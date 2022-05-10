@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CameraController _cameraController = default;
     [SerializeField] private int _moveSpeed;
     [SerializeField] private GameManager _gameManager = default;
-    [SerializeField] private int _fastSpeed = default;
-    [SerializeField] private int _slowSpeed = default;
+    [SerializeField] private int _fastSpeed = 100;
+    [SerializeField] private int _slowSpeed = 70;
     
     private Quaternion _defaultRotate;
     private CharacterController _characterController;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _defaultRotation = transform.rotation.z;
         _defaultRotate =Quaternion.Euler(transform.rotation.x,transform.rotation.y,_defaultRotation);
-
+        _moveSpeed = 70;
     }
     
     void FixedUpdate()

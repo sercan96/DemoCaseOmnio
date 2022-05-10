@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Transactions;
-using Cinemachine;
-using DG.Tweening;
-using Unity.Collections;
-using UnityEditor;
-using UnityEditor.Animations;
+﻿using DG.Tweening;
 using UnityEngine;
-using UnityEngineInternal;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private MoveMap moveMap;
+    private Rigidbody _rigidbody;
+
+    public float _moveSpeed;
+    [SerializeField] private float SlowMoveSpeed;
+    [SerializeField] private float FastMoveSpeed;
+
     [SerializeField] private CameraController _cameraController = default;
-    [SerializeField] private int _speed;
     [SerializeField] private GameManager _gameManager = default;
 
     private Quaternion _defaultRotate;
@@ -23,65 +21,56 @@ public class PlayerMovement : MonoBehaviour
     private float _defaultRotation;
     private float rotationPositiveZAxis = 22f;
     private float rotationNegativeZAxis = -22f;
-    private int negativeMoveXAxis = -1;
-    private int positiveMoveXAxis = 1;
-    private int fastSpeed = 15;
-    private int slowSpeed = 10;
-
-    private bool isMove;
+    private bool _isMouseClick = true;
+    
+    // private Rigidbody rb;
 
     void Awake()
     {
-        // rb = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _defaultRotation = transform.rotation.z;
         _defaultRotate = Quaternion.Euler(transform.rotation.x, transform.rotation.y, _defaultRotation);
-        _speed = 5;
     }
 
     void FixedUpdate()
     {
-        if (_gameManager.isGameActive)
-        {
-            Move(Vector3.forward * Time.fixedDeltaTime * _speed);
-        }
+        // if (_gameManager.isGameActive)
+        // {
+        //     //Move(Vector3.forward * Time.fixedDeltaTime * _speed);
+        //     //PlayerManager();
+        //     Move();
+        // }
+    }
+
+    private void Move()
+    {
+        //_rigidbody.MovePosition(transform.position + Vector3.forward * (_moveSpeed * Time.deltaTime));
+        //_characterController.Move(Vector3.forward * (_moveSpeed * Time.deltaTime));
     }
 
     void Update()
     {
-        PlayerControl();
-    }
-
-    public void Move(Vector3 moveVector)
-    {
-        if(isMove) return;
-        _characterController.Move(moveVector);
-    }
-
-    void PlayerControl()
-    {
         if (Input.GetMouseButtonDown(0))
         {
-            isMove = true;
-            PlayerRotation(rotationPositiveZAxis);
-            RunFastOrSlow(true, fastSpeed);
-            PassLeftOrRightSide(negativeMoveXAxis);
             _gameManager.ParticleEffectActivePassive(true);
-            //_cameraController.PlayerCameraMovement(-5, 10f);
+            moveMap.moveSpeed = FastMoveSpeed;
+            _animator.SetBool("isRun", true);
+            PassLeftOrRightSide(-1);
+            PlayerRotation(rotationPositiveZAxis);
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            isMove = true;
-            Debug.Log("up");
-            PlayerRotation(rotationNegativeZAxis);
-            RunFastOrSlow(false, slowSpeed);
-            PassLeftOrRightSide(positiveMoveXAxis);
+            PassLeftOrRightSide(1);
             _gameManager.ParticleEffectActivePassive(false);
-            //_cameraController.PlayerCameraMovement(-5, 10f);
+            PlayerRotation(rotationNegativeZAxis);
+            moveMap.moveSpeed = SlowMoveSpeed;
+            _animator.SetBool("isRun", false);
         }
-        
+
+        moveMap.moveSpeed = SlowMoveSpeed;
     }
 
     private void PlayerRotation(float rotationAxis)
@@ -92,34 +81,33 @@ public class PlayerMovement : MonoBehaviour
             transform.DORotateQuaternion(_defaultRotate, .3f);
         });
     }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.tag == "enemy")
-        {
-            Debug.Log("carpıstı");
-        }
-
-
-        else if (hit.gameObject.tag == "GameFinishCollider")
-        {
-            Debug.Log("girdim");
-            _gameManager.GameFinish(Random.Range(1, 4));
-            _gameManager.AudioPlay(Random.Range(1, 3));
-        }
-    }
-
-    private void RunFastOrSlow(bool isRun, int newSpeed)
-    {
-        _animator.SetBool("isRun", isRun);
-        _speed = newSpeed;
-    }
-
     private void PassLeftOrRightSide(float moveXAxis)
     {
+        
         Vector3 position = new Vector3(moveXAxis, transform.position.y, transform.position.z);
-        transform.DOMove(position, .3f).OnComplete((() => isMove = false));
+        //transform.position = Vector3.Lerp(transform.position, position, 20f);
+        transform.DOMove(position, 1f);
     }
+
+    // private void OnControllerColliderHit(ControllerColliderHit hit)
+    // {
+    //     if (hit.gameObject.CompareTag("enemy"))
+    //     {
+    //         Debug.Log("carpıstı");
+    //         Rigidbody body = hit.collider.attachedRigidbody;
+    //         // no rigidbody
+    //         if (body == null || body.isKinematic)
+    //             return;
+    //         Debug.Log("carpıstı");
+    //     }
+    //     else if (hit.gameObject.tag == "GameFinishCollider")
+    //     {
+    //         Debug.Log("girdim");
+    //         _gameManager.GameFinish(Random.Range(1, 4));
+    //         _gameManager.AudioPlay(Random.Range(1, 3));
+    //     // }
+    // }
+
 
 
     // private void OnTriggerEnter(Collider other)

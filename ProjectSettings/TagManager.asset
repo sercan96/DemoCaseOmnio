@@ -7,6 +7,7 @@ TagManager:
   - cube
   - GameFinishCollider
   - enemy
+  - amigo
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - enemy
+  - amigo
+  - player
   - 
   - 
   - 

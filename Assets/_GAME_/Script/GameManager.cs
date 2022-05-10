@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,7 +25,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         AudioPlay(0);
+    
     }
+
 
     public void GameFinish(int winIndex)
     {
@@ -51,6 +55,6 @@ public class GameManager : MonoBehaviour
             _audioSource.Stop();
             _audioSource.PlayOneShot(_audioClips[winMusic]);
         }
-
     }
+    
 }
