@@ -13,13 +13,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ConfetiParticleObject = default;
     [SerializeField] private CameraController _cameraController = default;
     [SerializeField] private AudioClip[] _audioClips = default;
+   
     
     public bool isGameActive = true;
+    public static GameManager İnstance;
     
     private AudioSource _audioSource;
-
+    
     void Awake()
     {
+        İnstance = this;
         _audioSource = GetComponent<AudioSource>();
     }
     void Start()
@@ -27,8 +30,7 @@ public class GameManager : MonoBehaviour
         AudioPlay(0);
     
     }
-
-
+    
     public void GameFinish(int winIndex)
     {
         _animator.SetInteger("WinIndex",winIndex);

@@ -6,6 +6,7 @@ public class MoveMap : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.İnstance.isGameActive) return;
         DoMoveMap();
     }
 

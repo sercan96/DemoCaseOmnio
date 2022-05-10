@@ -121,10 +121,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("carpıstı");
         }
-        else if (other.gameObject.tag != "GameFinishCollider") return;
-        Debug.Log("girdim");
-        _gameManager.GameFinish(Random.Range(1,4));
-        _gameManager.AudioPlay(Random.Range(1,3));
+        else if (other.gameObject.CompareTag("GameFinishCollider"))
+        {
+            Debug.Log("girdim");
+            _gameManager.GameFinish(Random.Range(1,4));
+            _gameManager.AudioPlay(Random.Range(1,3));
+        }
+ 
     }
 
     // private  void OnControllerColliderHit(ControllerColliderHit hit)

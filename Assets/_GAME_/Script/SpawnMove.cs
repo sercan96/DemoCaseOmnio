@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SpawnMove : MonoBehaviour
 {
-    [SerializeField] private bool _isAmigo;
-    [SerializeField] private bool _isEnemy;
-    [SerializeField]private float _moveSpeed = 10f;
-    
-    
+    [SerializeField] private float _moveSpeed;
+
+    public float GetMoveSpeed
+    {
+        get => _moveSpeed;
+        set => _moveSpeed = value;
+    }
+
     private Rigidbody _rigidbody;
  
 
@@ -19,13 +23,13 @@ public class SpawnMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_isEnemy) Move(transform.position + (Vector3.back * Time.fixedDeltaTime * _moveSpeed));
-
+       Move();
     }   
 
-    void Move(Vector3 moveVector)
+    void Move()
     {
-        _rigidbody.MovePosition(moveVector);
+        _rigidbody.MovePosition(transform.position + (Vector3.back * Time.fixedDeltaTime) * _moveSpeed);
     }
+    
 
 }
