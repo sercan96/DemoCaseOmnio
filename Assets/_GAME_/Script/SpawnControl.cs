@@ -7,6 +7,14 @@ public class SpawnControl : MonoBehaviour
     public  Transform _enemySpawnPosition;
     public  Transform _amigoSpawnPosition;
     
+    void OnEnable()
+    {
+        EventManager.OnWin += StopSpawnInvoke;
+    }
+    void OnDisable()
+    {
+        EventManager.OnWin -= StopSpawnInvoke;
+    }
     void Start()
     {
         InvokeRepeating(nameof(SpawnEnemy), 0, 2f);
@@ -21,5 +29,11 @@ public class SpawnControl : MonoBehaviour
     void SpawnAmigo()
     {
         ObjectPooler.instance.SpawnFromPool("Amigo",_amigoSpawnPosition.position , Quaternion.identity);
+    }
+
+    void StopSpawnInvoke()
+    {
+        CancelInvoke(nameof(SpawnEnemy));
+        CancelInvoke(nameof(SpawnAmigo));
     }
 }

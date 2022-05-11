@@ -3,11 +3,7 @@
 public class MoveMap : MonoBehaviour
 {
     public float moveSpeed;
-
-    void Start()
-    {
- 
-    }
+    
         
     private void FixedUpdate()
     {

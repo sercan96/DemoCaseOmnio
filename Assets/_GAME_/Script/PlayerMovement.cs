@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Sürümden dolayı [Serializefield] iel tanımlanan değerlerin default girilmesi uyarısı alındığı için bu şekilde girdim.
     [SerializeField] private MoveMap moveMap = default;
     [SerializeField] private float _slowMoveSpeed = 10;
     [SerializeField] private float _fastMoveSpeed = 50;
-    // [SerializeField] private SpawnMove[] _spawnMove = default;
 
     private Quaternion _defaultRotate;
     private Animator _animator;
@@ -64,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
     private void PassLeftOrRightSide(float moveXAxis)
     {
         Vector3 position = new Vector3(moveXAxis, transform.position.y, transform.position.z);
-        //transform.position = Vector3.Lerp(transform.position, position, 20f);
         transform.DOMove(position, 1f);
     }
     
@@ -72,15 +69,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("enemy"))
         {
-            GameManager.İnstance.GameOver();
+            EventManager.TriggerOnFail();
             GetComponent<BoxCollider>().enabled = false;
             GameManager.İnstance.AudioPlay(2); // 4.indexi gireceğim. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // _spawnMove[0].GetMoveSpeed = _spawnMove[0].GetMoveSpeed / 2;
-            // _spawnMove[1].GetMoveSpeed = _spawnMove[1].GetMoveSpeed * 2;
-
         }
         else if (other.gameObject.tag == "GameFinishCollider")
         {
+            EventManager.TriggerOnWin();
             Debug.Log("girdim");
             GameManager.İnstance.GameWin(Random.Range(1,4));
             GameManager.İnstance.AudioPlay(Random.Range(1,3));

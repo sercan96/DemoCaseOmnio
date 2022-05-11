@@ -1590,7 +1590,7 @@ GameObject:
   - component: {fileID: 8963067414155861304}
   - component: {fileID: 6368260619677473339}
   - component: {fileID: 855135800694399992}
-  - component: {fileID: 585603630965273582}
+  - component: {fileID: 4277437521169854659}
   m_Layer: 9
   m_Name: AmigoCharacter
   m_TagString: amigo
@@ -1663,7 +1663,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &585603630965273582
+--- !u!114 &4277437521169854659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1672,10 +1672,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5787707778028861145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c540c1afb143414f893b6b5f7b8bd9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 548935bf25958304c8c12bfff4e9c232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: -1
+  finishMoveSpeed: -5
 --- !u!1 &5839076176161856676
 GameObject:
   m_ObjectHideFlags: 0

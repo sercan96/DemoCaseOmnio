@@ -27,6 +27,15 @@ public class GameManager : MonoBehaviour
         İnstance = this;
         _audioSource = GetComponent<AudioSource>();
     }
+
+    void OnEnable()
+    {
+        EventManager.OnFail += GameOver;
+    }
+    void OnDisable()
+    {
+        EventManager.OnFail -= GameOver;
+    }
     void Start()
     {
         AudioPlay(0);

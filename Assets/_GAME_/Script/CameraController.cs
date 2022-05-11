@@ -15,6 +15,10 @@ public class CameraController : MonoBehaviour
         _cinemachineComponent = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
     }
 
+    void Update()
+    {
+        
+    }
     public void PlayerCameraMovement(float cameraZAxis,float waitTime)
     {
         Vector3 newVector= new Vector3(_cinemachineComponent.m_FollowOffset.x, 
