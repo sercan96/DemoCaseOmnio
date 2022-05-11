@@ -4,6 +4,7 @@ using Unity.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,11 +16,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController _cameraController = default;
     [SerializeField] private AudioClip[] _audioClips = default;
     [SerializeField] private GameObject gameOverPanel = default;
-   
+    [SerializeField] private GameObject _loadingBarObject = default;
     
+    public Transform startPoint;
+    public Transform endPoint;
+   
+    public Image fillAmountImage;
+
     public bool isGameActive = true;
     public static GameManager İnstance;
     
+    public float currentDistance, totalDistance = 0;
+
     private AudioSource _audioSource;
     
     void Awake()
@@ -38,8 +46,19 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        startPoint = GameObject.FindWithTag("Player").transform;
+        endPoint = GameObject.FindWithTag("Finish").transform;
+        
+        totalDistance = Vector3.Distance(startPoint.position, endPoint.position);
+        
         AudioPlay(0);
     
+    }
+    
+    void Update()
+    {
+        currentDistance = Vector3.Distance(startPoint.transform.position, endPoint.transform.position);
+        fillAmountImage.fillAmount = 1 - (currentDistance / totalDistance);
     }
     
     public void GameWin(int winIndex)
@@ -51,6 +70,8 @@ public class GameManager : MonoBehaviour
         _gameWinPanel.SetActive(true);
         ConfetiParticleObject.SetActive(true);
         _cameraController.GameFinishCameraMovement();
+        _loadingBarObject.SetActive(false);
+        
     }
 
     public void GameOver()

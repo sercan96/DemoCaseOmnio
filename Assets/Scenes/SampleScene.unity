@@ -770,7 +770,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fe7fc5c8c635caf4b803cfdf8950a309, type: 3}
   - {fileID: 8300000, guid: 79cd889ee48fa084bbbfa142f745131c, type: 3}
   gameOverPanel: {fileID: 1326061168}
+  _loadingBarObject: {fileID: 1484211180}
+  startPoint: {fileID: 543362016}
+  endPoint: {fileID: 917186136}
+  fillAmountImage: {fileID: 1987055385}
   isGameActive: 1
+  currentDistance: 0
+  totalDistance: 0
 --- !u!4 &294344848
 Transform:
   m_ObjectHideFlags: 0
@@ -1983,7 +1989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770531bfa9ec8f04686ae0f7260703e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveMap: {fileID: 1476245903}
   _slowMoveSpeed: 10
   _fastMoveSpeed: 20
 --- !u!4 &543362016 stripped
@@ -3494,11 +3499,11 @@ MonoBehaviour:
   - type: Amigo
     prefab: {fileID: 5787707778028861145, guid: 3abfd053ec42943499deabcb40261af6,
       type: 3}
-    size: 5
+    size: 10
   - type: Enemy
     prefab: {fileID: 2602297776517407944, guid: 7a45214d5bbadfc489c96a7979300c8e,
       type: 3}
-    size: 5
+    size: 10
 --- !u!4 &805947098
 Transform:
   m_ObjectHideFlags: 0
@@ -3656,6 +3661,49 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &917186134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917186136}
+  - component: {fileID: 917186135}
+  m_Layer: 0
+  m_Name: FinishPoint
+  m_TagString: Finish
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &917186135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917186134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5f17598a51ec9408edea8de16cab18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &917186136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917186134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.29, z: 407.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4424,6 +4472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 25
   amigoSpeed: -0.5
+  planeSpeed: 0
 --- !u!1 &1173239663 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1126282766154662252, guid: c5e63d89578504cbaacdb77a4b0616b7,
@@ -5303,7 +5352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5f17598a51ec9408edea8de16cab18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
 --- !u!1 &1484211180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5321,7 +5369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1484211181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7263,7 +7311,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

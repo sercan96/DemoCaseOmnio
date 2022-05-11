@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private MoveMap moveMap = default;
     [SerializeField] private float _slowMoveSpeed = 10;
     [SerializeField] private float _fastMoveSpeed = 50;
 
@@ -25,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        moveMap.moveSpeed = _slowMoveSpeed;
+        MoveSpeed.instance.planeSpeed = _slowMoveSpeed;
     }
     
     void Update()
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GameManager.İnstance.ParticleEffectActivePassive(true);
-            moveMap.moveSpeed = _fastMoveSpeed;
+            MoveSpeed.instance.planeSpeed = _fastMoveSpeed;
             _animator.SetBool("isRun", true);
             PassLeftOrRightSide(-1);
             PlayerRotation(rotationPositiveZAxis);
@@ -46,7 +45,7 @@ public class PlayerController : MonoBehaviour
             PassLeftOrRightSide(1);
             GameManager.İnstance.ParticleEffectActivePassive(false);
             PlayerRotation(rotationNegativeZAxis);
-            moveMap.moveSpeed = _slowMoveSpeed;
+            MoveSpeed.instance.planeSpeed = _slowMoveSpeed;
             _animator.SetBool("isRun", false);
         }
     }
@@ -76,7 +75,7 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "GameFinishCollider")
         {
             EventManager.TriggerOnWin();
-            Debug.Log("girdim");
+
             GameManager.İnstance.GameWin(Random.Range(1,4));
             GameManager.İnstance.AudioPlay(Random.Range(1,3));
         }

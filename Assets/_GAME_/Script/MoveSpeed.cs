@@ -8,6 +8,7 @@ public class MoveSpeed : MonoBehaviour
 
     public float enemySpeed;
     public float amigoSpeed;
+    public float planeSpeed;
     
     void Awake()
     {
