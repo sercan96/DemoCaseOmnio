@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private MoveMap moveMap = default;
     [SerializeField] private float _slowMoveSpeed = 10;

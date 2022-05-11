@@ -17,8 +17,8 @@ public class SpawnControl : MonoBehaviour
     }
     void Start()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 0, 2f);
-        InvokeRepeating(nameof(SpawnAmigo), 0, 2f);
+        InvokeRepeating(nameof(SpawnEnemy), 0, Random.Range(3,8));
+        InvokeRepeating(nameof(SpawnAmigo), 0, Random.Range(3,8));
     }
 
     void SpawnEnemy()

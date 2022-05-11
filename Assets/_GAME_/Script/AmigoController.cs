@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class AmigoController : MonoBehaviour
 {
+    private SpawnControl _spawnControl;
     [SerializeField] private float finishMoveSpeed;
     private Rigidbody _rigidbody;
     
@@ -20,24 +21,30 @@ public class EnemyMove : MonoBehaviour
     }
     void Start()
     {
+        _spawnControl = FindObjectOfType<SpawnControl>();
         _rigidbody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
        Move();
+
+       if (_spawnControl._enemySpawnPosition.position.z < transform.position.z)
+       {
+           gameObject.SetActive(false);
+       }
     }   
 
     void Move()
     {
-        _rigidbody.MovePosition(transform.position + (Vector3.back * Time.fixedDeltaTime) * MoveSpeed.instance.enemySpeed);
+        _rigidbody.MovePosition(transform.position + (Vector3.back * Time.fixedDeltaTime) * MoveSpeed.instance.amigoSpeed);
     }
     
     public void ChangeMoveSpeed()
     {
-        MoveSpeed.instance.enemySpeed = finishMoveSpeed;
+        MoveSpeed.instance.amigoSpeed = finishMoveSpeed;
     }
-
+    
     public void DestroyObject()
     {
         Destroy(gameObject);
