@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator _animator = default;
     [SerializeField] private GameObject _smokeParticlePrefab = default;
     [SerializeField] private GameObject _ball = default;
-    [SerializeField] private GameObject _uıManager = default;
+    [SerializeField] private GameObject _gameWinPanel = default;
     [SerializeField] private GameObject ConfetiParticleObject = default;
     [SerializeField] private CameraController _cameraController = default;
     [SerializeField] private AudioClip[] _audioClips = default;
@@ -33,16 +33,15 @@ public class GameManager : MonoBehaviour
     
     }
     
-    public void GameFinish(int winIndex)
+    public void GameWin(int winIndex)
     {
         _animator.SetInteger("WinIndex",winIndex);
         isGameActive = false;
         ParticleEffectActivePassive(false);
         _ball.SetActive(false);
-        _uıManager.SetActive(true);
+        _gameWinPanel.SetActive(true);
         ConfetiParticleObject.SetActive(true);
         _cameraController.GameFinishCameraMovement();
-        
     }
 
     public void GameOver()

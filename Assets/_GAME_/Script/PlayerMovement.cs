@@ -29,23 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveMap.moveSpeed = _slowMoveSpeed;
     }
-
-    void FixedUpdate()
-    {
-        // if (_gameManager.isGameActive)
-        // {
-        //     //Move(Vector3.forward * Time.fixedDeltaTime * _speed);
-        //     //PlayerManager();
-        //     Move();
-        // }
-    }
-
-    private void Move()
-    {
-        //_rigidbody.MovePosition(transform.position + Vector3.forward * (_moveSpeed * Time.deltaTime));
-        //_characterController.Move(Vector3.forward * (_moveSpeed * Time.deltaTime));
-    }
-
+    
     void Update()
     {
         if (!GameManager.İnstance.isGameActive) return;
@@ -67,8 +51,6 @@ public class PlayerMovement : MonoBehaviour
             moveMap.moveSpeed = _slowMoveSpeed;
             _animator.SetBool("isRun", false);
         }
-        
-        // moveMap.moveSpeed = _slowMoveSpeed;
     }
 
     private void PlayerRotation(float rotationAxis)
@@ -100,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.tag == "GameFinishCollider")
         {
             Debug.Log("girdim");
-            GameManager.İnstance.GameFinish(Random.Range(1,4));
+            GameManager.İnstance.GameWin(Random.Range(1,4));
             GameManager.İnstance.AudioPlay(Random.Range(1,3));
         }
 

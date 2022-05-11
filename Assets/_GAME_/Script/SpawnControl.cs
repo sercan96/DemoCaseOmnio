@@ -10,7 +10,7 @@ public class SpawnControl : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(SpawnEnemy), 0, 2f);
-        InvokeRepeating(nameof(SpawnAmigo), 0, 5f);
+        InvokeRepeating(nameof(SpawnAmigo), 0, 2f);
     }
 
     void SpawnEnemy()
