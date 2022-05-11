@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnControl : MonoBehaviour
 {
-    [SerializeField] private Transform enemySpawnPosition;
-    [SerializeField] private Transform amigoSpawnPosition;
+    public  Transform _enemySpawnPosition;
+    public  Transform _amigoSpawnPosition;
     
     void Start()
     {
@@ -15,11 +15,11 @@ public class SpawnControl : MonoBehaviour
 
     void SpawnEnemy()
     {
-        ObjectPooler.instance.SpawnFromPool("Enemy", enemySpawnPosition.position, Quaternion.Euler(0f,180f,0f));
+        ObjectPooler.instance.SpawnFromPool("Enemy", _enemySpawnPosition.position, Quaternion.Euler(0f,180f,0f));
     }
 
     void SpawnAmigo()
     {
-        ObjectPooler.instance.SpawnFromPool("Amigo",amigoSpawnPosition.position , Quaternion.identity);
+        ObjectPooler.instance.SpawnFromPool("Amigo",_amigoSpawnPosition.position , Quaternion.identity);
     }
 }
