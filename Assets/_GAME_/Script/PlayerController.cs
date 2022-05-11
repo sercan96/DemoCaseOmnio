@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private CameraController _cameraController;
     [SerializeField] private float _slowMoveSpeed = 10;
     [SerializeField] private float _fastMoveSpeed = 50;
 
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isRun", true);
             PassLeftOrRightSide(-1);
             PlayerRotation(rotationPositiveZAxis);
-            return;
+            _cameraController.isFast = true;
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
             PlayerRotation(rotationNegativeZAxis);
             MoveSpeed.instance.planeSpeed = _slowMoveSpeed;
             _animator.SetBool("isRun", false);
+            _cameraController.isFast = false;
         }
     }
 

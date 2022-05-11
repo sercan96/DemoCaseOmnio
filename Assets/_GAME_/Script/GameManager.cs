@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
         ParticleEffectActivePassive(false);
         _ball.SetActive(false);
         _cameraController.GameFinishCameraMovement();
+        _loadingBarObject.SetActive(false);
     }
     public void ParticleEffectActivePassive(bool isParticleActive)
     {
