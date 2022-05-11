@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (!GameManager.İnstance.isGameActive) return;
+
+        
         if (Input.GetMouseButtonDown(0))
         {
             GameManager.İnstance.ParticleEffectActivePassive(true);
@@ -50,6 +52,38 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isRun", false);
             _cameraController.isFast = false;
         }
+
+        #region Touch Input
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+        
+            if (touch.phase == TouchPhase.Began)
+            {
+                GameManager.İnstance.ParticleEffectActivePassive(true);
+                MoveSpeed.instance.planeSpeed = _fastMoveSpeed;
+                _animator.SetBool("isRun", true);
+                PassLeftOrRightSide(-1);
+                PlayerRotation(rotationPositiveZAxis);
+                _cameraController.isFast = true;
+            }
+
+            if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                Debug.Log("up");
+                PassLeftOrRightSide(1);
+                GameManager.İnstance.ParticleEffectActivePassive(false);
+                PlayerRotation(rotationNegativeZAxis);
+                MoveSpeed.instance.planeSpeed = _slowMoveSpeed;
+                _animator.SetBool("isRun", false);
+                _cameraController.isFast = false;
+            }
+        }
+
+        #endregion
+       
+        
     }
 
     private void PlayerRotation(float rotationAxis)
