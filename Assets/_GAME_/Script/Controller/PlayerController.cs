@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private CameraController _cameraController;
+    [SerializeField] private CameraController _cameraController = default; 
     [SerializeField] private float _slowMoveSpeed = 10;
     [SerializeField] private float _fastMoveSpeed = 50;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float rotationPositiveZAxis = 22f;
     private float rotationNegativeZAxis = -22f;
 
-    
+
     void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.İnstance.ParticleEffectActivePassive(true);
             MoveSpeed.instance.planeSpeed = _fastMoveSpeed;
+            MoveSpeed.instance.amigoSpeed = 4.5f; 
             _animator.SetBool("isRun", true);
             PassLeftOrRightSide(-1);
             PlayerRotation(rotationPositiveZAxis);
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
             PassLeftOrRightSide(1);
             GameManager.İnstance.ParticleEffectActivePassive(false);
             PlayerRotation(rotationNegativeZAxis);
+            MoveSpeed.instance.amigoSpeed = -0.2f; 
             MoveSpeed.instance.planeSpeed = _slowMoveSpeed;
             _animator.SetBool("isRun", false);
             _cameraController.isFast = false;
@@ -106,7 +108,6 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.TriggerOnFail();
             GetComponent<BoxCollider>().enabled = false;
-            GameManager.İnstance.AudioPlay(2); // 4.indexi gireceğim. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
         else if (other.gameObject.tag == "GameFinishCollider")
         {

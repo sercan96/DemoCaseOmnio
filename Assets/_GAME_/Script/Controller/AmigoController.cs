@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class AmigoController : MonoBehaviour
 {
+    [SerializeField] private float finishMoveSpeed = default;
+    
     private SpawnControl _spawnControl;
-    [SerializeField] private float finishMoveSpeed;
     private Rigidbody _rigidbody;
     
     void OnEnable()

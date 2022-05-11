@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private float finishMoveSpeed;
+    [SerializeField] private float finishMoveSpeed = default;
+    
     private Rigidbody _rigidbody;
     
     void OnEnable()

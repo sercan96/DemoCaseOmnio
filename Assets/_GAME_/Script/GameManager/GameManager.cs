@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    // I did it because it requires the unity default definition.
     [SerializeField] private Animator _animator = default;
     [SerializeField] private GameObject _smokeParticlePrefab = default;
     [SerializeField] private GameObject _ball = default;
@@ -22,12 +23,9 @@ public class GameManager : MonoBehaviour
     
     public Transform startPoint;
     public Transform endPoint;
-   
     public Image fillAmountImage;
-
-    public bool isGameActive = true;
     public static GameManager İnstance;
-    
+    public bool isGameActive = true;
     public float currentDistance, totalDistance = 0;
 
     private AudioSource _audioSource;

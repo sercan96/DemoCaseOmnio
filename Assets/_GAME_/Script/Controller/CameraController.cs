@@ -7,16 +7,18 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera = default;
-    // [SerializeField] private Vector3 _gameFinishCameraPos = default;
+    
+    public bool isFast;
     
     private CinemachineTransposer _cinemachineTransposer;
     private CinemachineComposer _cinemachineComposer;
 
-    public bool isFast;
+
     void Start()
     {
         _cinemachineTransposer = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
         _cinemachineComposer = _cinemachineVirtualCamera.GetCinemachineComponent<CinemachineComposer>();
+  
     }
 
     void Update()
@@ -30,6 +32,7 @@ public class CameraController : MonoBehaviour
         {
             PlayerCameraMovement(1.6f, -5.5f, 3f);
         }
+
     } 
     public void PlayerCameraMovement(float yAxis, float zAxis, float duration)
     {
@@ -43,5 +46,6 @@ public class CameraController : MonoBehaviour
     {
         _cinemachineTransposer.m_FollowOffset = transposerOffset;
         _cinemachineComposer.m_TrackedObjectOffset = composerOffset;
+
     }
 }
