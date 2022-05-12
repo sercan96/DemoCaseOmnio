@@ -1042,6 +1042,7 @@ MonoBehaviour:
   isGameActive: 1
   currentDistance: 0
   totalDistance: 0
+  _audioSource: {fileID: 294344849}
 --- !u!4 &294344848
 Transform:
   m_ObjectHideFlags: 0
@@ -2278,7 +2279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraController: {fileID: 963194230}
-  _ragdol: {fileID: 0}
   _slowMoveSpeed: 10
   _fastMoveSpeed: 20
 --- !u!4 &543362016 stripped
