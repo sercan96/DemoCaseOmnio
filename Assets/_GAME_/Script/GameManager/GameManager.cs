@@ -27,13 +27,12 @@ public class GameManager : MonoBehaviour
     public static GameManager İnstance;
     public bool isGameActive = true;
     public float currentDistance, totalDistance = 0;
-
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
+  
     
     void Awake()
     {
         İnstance = this;
-        _audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()

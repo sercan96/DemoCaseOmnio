@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private CameraController _cameraController = default; 
+    [SerializeField] private CameraController _cameraController = default;
+
     [SerializeField] private float _slowMoveSpeed = 10;
     [SerializeField] private float _fastMoveSpeed = 50;
 
     private Quaternion _defaultRotate;
     private Animator _animator;
-    private Animation _animation;
-
+    private Animation _animation; 
+    private Ragdol _ragdol;
     private float _defaultRotation;
     private float rotationPositiveZAxis = 22f;
     private float rotationNegativeZAxis = -22f;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
+        _ragdol = GetComponent<Ragdol>();
         _defaultRotation = transform.rotation.z;
         _defaultRotate = Quaternion.Euler(transform.rotation.x, transform.rotation.y, _defaultRotation);
     }
@@ -108,6 +110,10 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.TriggerOnFail();
             GetComponent<BoxCollider>().enabled = false;
+            
+            _animator.enabled = false;
+            _ragdol.ActivateOrDeactivateRagdoll(false,true);
+            GameManager.İnstance._audioSource.Stop();
         }
         else if (other.gameObject.tag == "GameFinishCollider")
         {
@@ -116,6 +122,6 @@ public class PlayerController : MonoBehaviour
             GameManager.İnstance.GameWin(Random.Range(1,4));
             GameManager.İnstance.AudioPlay(Random.Range(1,3));
         }
-
     }
+    
 }
